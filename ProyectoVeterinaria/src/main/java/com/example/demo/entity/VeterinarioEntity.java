@@ -1,12 +1,11 @@
 package com.example.demo.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,7 +38,7 @@ public class VeterinarioEntity {
     @Column(name = "Correo", length = 50 ,unique = true, nullable = false)
     private String correo; 
 
-    @Column(name = "Sueldo", precision = 10, scale = 2, nullable = false)
+    @Column(name = "Sueldo", precision = 10, nullable = false)
     private Double sueldo;
 
     @Column(name = "Direccion", length = 50, nullable = false)
