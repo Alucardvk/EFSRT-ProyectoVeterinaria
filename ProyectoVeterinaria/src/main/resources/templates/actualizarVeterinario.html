@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Editar Veterinario</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+	<div class="container mt-5">
+		<h2 class="text-center">Editar Veterinario</h2>
+		<form th:action="@{/actualizar_veterinario}"
+			th:object="${veterinario}" method="post">
+			<input type="hidden" th:field="*{codVet}" />
+
+			<div class="form-group">
+				<label for="nombre">Nombre</label> <input type="text"
+					class="form-control" id="nombre" th:field="*{nombre}" required>
+			</div>
+
+			<div class="form-group">
+				<label for="apellidoPat">Apellido Paterno</label> <input type="text"
+					class="form-control" id="apellidoPat" th:field="*{apellidoPat}"
+					required>
+			</div>
+
+			<div class="form-group">
+				<label for="apellidoMat">Apellido Materno</label> <input type="text"
+					class="form-control" id="apellidoMat" th:field="*{apellidoMat}"
+					required>
+			</div>
+
+			<div class="form-group">
+				<label for="dni">DNI</label> <input type="text" class="form-control"
+					id="dni" th:field="*{dni}" readonly>
+			</div>
+
+			<div class="form-group">
+				<label for="direccion">Dirección</label> <input type="text"
+					class="form-control" id="direccion" th:field="*{direccion}"
+					required>
+			</div>
+			<div class="form-group">
+				<label for="telefono">Teléfono</label> <input type="text"
+					class="form-control" id="telefono" th:field="*{telefono}" required>
+			</div>
+
+			<div class="form-group">
+				<label for="especialidad">Especialidad</label> <input type="text"
+					class="form-control" id="especialidad" th:field="*{especialidad}"
+					required>
+			</div>
+
+			<div class="form-group">
+				<label for="sueldo">Sueldo</label> <input type="number"
+					class="form-control" id="sueldo" th:field="*{sueldo}" required>
+			</div>
+			<div class="form-group">
+				<label for="correo">Correo Electrónico</label> <input type="email"
+					class="form-control" id="correo" th:field="*{correo}" readonly>
+			</div>
+
+			<div class="form-group">
+				<label for="contrasenia"></label> <input type="password"
+					class="form-control" id="contrasenia" th:field="*{contrasenia}">
+			</div>
+
+			<div class="form-group">
+				<button type="submit" class="btn btn-success btn-block">Actualizar
+					Veterinario</button>
+			</div>
+			<div class="form-group">
+			<a class="btn btn-secondary btn-block"
+				th:href="@{/listarVeterinario}" role="button">Volver a la Lista
+				de Veterinarios</a>
+		</div>
+		</form>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Lista de Veterinarios</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+	<div class="container mt-5">
+		<h2 class="text-center">Lista de Veterinarios</h2>
+
+		<div class="mb-3">
+			<a class="btn btn-primary" th:href="@{/menu}" role="button">Volver
+				al Menú</a> <a class="btn btn-success"
+				th:href="@{/registrar_veterinario}" role="button">Registrar
+				Nuevo Veterinario</a>
+		</div>
+
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Apellido Paterno</th>
+					<th>Apellido Materno</th>
+					<th>Correo</th>
+					<th>Especialidad</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="veterinario : ${listaVeterinarios}">
+					<td th:text="${veterinario.nombre}"></td>
+					<td th:text="${veterinario.apellidoPat}"></td>
+					<td th:text="${veterinario.apellidoMat}"></td>
+					<td th:text="${veterinario.correo}"></td>
+					<td th:text="${veterinario.especialidad}"></td>
+					<td><a
+						th:href="@{/editar_veterinario/{id}(id=${veterinario.codVet})}"
+						class="btn btn-warning btn-sm">Editar</a> <a
+						th:href="@{/eliminar_veterinario/{id}(id=${veterinario.codVet})}"
+						class="btn btn-danger btn-sm"
+						onclick="return confirm('¿Estás seguro de que deseas eliminar a este veterinario?');">Eliminar</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -53,9 +53,7 @@ public class VeterinarioEntity {
     @Column(name = "Especialidad", length = 20, nullable = false)
     private String especialidad;
 
-    @Column(name = "Contrasenia", length = 50, nullable = false)
-    private String contrasenia;
-    
-    
-    
+    @Column(name = "Contrasenia", length = 250, nullable = false)
+	private String contrasenia;
+
 }
