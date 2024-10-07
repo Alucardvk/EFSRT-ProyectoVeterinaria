@@ -1,0 +1,88 @@
+body {
+    background-image: url(/img/fondo.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    position: relative; 
+}
+.container {
+    background-color: #ffffffc7;
+    text-align: left; 
+    width: 70%; 
+    height: auto; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    padding: 20px; 
+}
+h1 {
+    margin: 0; 
+    padding: 20px 0;
+    text-align: center; 
+}
+.cerrar,
+.volver {
+    background-color: rgb(230, 227, 233);
+    position: absolute; 
+    top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+.cerrar {
+    left: 20px;
+}
+.volver {
+    right: 20px;
+}
+button {
+    margin: 5px;
+    padding: 20px 40px; 
+    font-size: 18px; 
+    background-color: rgba(204, 138, 52, 0.801);
+    border-radius: 5px;
+    border: 2px;
+    transition: background-color 0.5s;
+    box-shadow: 6px 4px 4px rgba(0, 0, 0, 0.281);
+}
+button:hover {
+    background-color: rgba(233, 235, 162, 0.445);
+}
+.print {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    width: 100%;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    width: 60%; 
+}
+label {
+    font-weight: bold; 
+}
+input, select, textarea {
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%; 
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+textarea {
+    height: 100px;
+}
+.col {
+    background-color: rgba(241, 204, 135, 0.753);
+    padding: 20px; 
+    border-radius: 5px; 
+    width: 50%; 
+}

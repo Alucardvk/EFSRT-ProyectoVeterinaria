@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mascotas Registradas</title>
+    <link rel="stylesheet" href="/css/tablas.css">
+</head>
+<body>
+    <button class="logout-button">Cerrar Sesión</button>
+    <button class="back-button">Volver</button>
+    <div class="container">
+        <h1>Veterinaria</h1>
+        <main class="table" id="pets_table">
+            <a th:href="@{/registrar_mascota}" class="btn btn-primary">Registrar Mascota</a>
+        
+            <section class="table__header">
+                <h1>Mascotas Registradas</h1>
+            </section>
+            <section class="table__body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Raza</th>
+                            <th>Sexo</th>
+                            <th>Edad</th>
+                            <th>Especie</th>
+                            <th>Peso</th>
+                            <th>Cliente</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="mascota : ${mascotas}">
+                            <td th:text="${mascota.codMascota}"></td>
+                            <td th:text="${mascota.nombre}"></td>
+                            <td th:text="${mascota.raza}"></td>
+                            <td th:text="${mascota.sexo}"></td>
+                            <td th:text="${mascota.edad}"></td>
+                            <td th:text="${mascota.especie}"></td>
+                            <td th:text="${mascota.peso}"></td>
+                            <td th:text="${mascota.cliente.nombre + ' ' + mascota.cliente.apellidoPat}"></td>
+                            <td>
+                                <a th:href="@{/delete_mascota/{id}(id=${mascota.codMascota})}" class="btn btn-danger">Eliminar</a> |
+                                <a th:href="@{/actualizar_mascota/{id}(id=${mascota.codMascota})}" class="btn btn-warning">Editar</a> |
+                                <a th:href="@{/detalle_mascota/{id}(id=${mascota.codMascota})}" class="btn btn-primary">Detalles</a>  
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
