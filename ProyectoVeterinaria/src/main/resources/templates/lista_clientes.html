@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="/css/tablas.css">
 </head>
 <body>
-    <button class="logout-button">Cerrar Sesión</button>
-    <button class="back-button">Volver</button>
+ 
+  
     <div class="container">
         <h1>Veterinaria</h1>
         <main class="table" id="customers_table">
@@ -48,6 +48,8 @@
 			                    <a th:href="@{/detalle_cliente/{id}(id=${cliente.codCliente})}" class="btn btn-primary">Detalles</a>  
 			                </td>
                         </tr>
+                        
+                          <a th:href="@{/menu}" class="btn btn-secondary">Regresar</a>
                     </tbody>
                 </table>
             </section>

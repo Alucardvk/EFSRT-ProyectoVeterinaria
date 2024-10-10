@@ -25,9 +25,9 @@
             <input type="text" class="form-control" id="raza" th:field="*{raza}" placeholder="Ingrese la raza de la mascota" required>
         </div>
         <div class="form-group">
-            <label for="sexo">Sexo:</label>
-            <input type="text" class="form-control" id="sexo" th:field="*{sexo}" placeholder="Ingrese el sexo de la mascota" required>
-        </div>
+		    <label for="sexo">Sexo:</label>
+		    <input type="text" class="form-control" id="sexo" th:field="*{sexo}" placeholder="Ingrese 'M' para macho o 'H' para hembra" maxlength="1" pattern="[MH]" required>
+		</div>
         <div class="form-group">
             <label for="edad">Edad:</label>
             <input type="number" class="form-control" id="edad" th:field="*{edad}" placeholder="Ingrese la edad de la mascota" required>
@@ -51,7 +51,7 @@
             </select>
         </div>
 
-        <a th:href="@{/lista_mascotas}" class="btn btn-secondary">Regresar</a>
+        <a th:href="@{/menu}" class="btn btn-secondary">Regresar</a>
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
 </div>

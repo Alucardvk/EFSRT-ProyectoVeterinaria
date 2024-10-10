@@ -13,14 +13,16 @@
 
         <div class="horizontal-buttons">
             <a th:href="@{/listarVeterinario}">Lista de Veterinarios</a>
-          <a th:href="@{/mascotas}" class="primer"  >Registrar mascotas</a>
+          <a th:href="@{/registrar_mascota}" class="primer"  >Registrar mascotas</a>
              <a th:href="@{/lista_clientes}" class="primer"  >Registrar clientes</a>
         </div>
 
         <div class="vertical-buttons">
-            <button class="segundo" >Mascotas</button>
-            <button class="segundo">Citas programadas</button>
-            <button class="segundo">Informe de citas</button>
+             <a th:href="@{/mascotas}" class="primer"  >mascotas</a>
+             <a th:href="@{/lista_citas}" class="primer"  >informe de cita</a>
+             <!-- Completar Reportes -->
+              <a class="primer"  >Reportes</a>
+         	
         </div>
     </div>
 </body>

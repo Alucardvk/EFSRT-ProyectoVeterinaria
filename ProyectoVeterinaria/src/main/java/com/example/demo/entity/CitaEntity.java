@@ -56,9 +56,6 @@ public class CitaEntity {
     @JoinColumn(name = "Cod_Veterinario", nullable = false)
     private VeterinarioEntity codVet;
 
-    @ManyToOne
-    @JoinColumn(name = "Cod_Cliente", nullable = false)
-    private ClienteEntity codCliente;
 
 
 }

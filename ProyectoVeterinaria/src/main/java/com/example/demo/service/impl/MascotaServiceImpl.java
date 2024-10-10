@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.example.demo.entity.ClienteEntity;
 import com.example.demo.entity.MascotaEntity;
 import com.example.demo.repository.MascotaRepository;
 import com.example.demo.service.MascotaService;
@@ -41,5 +42,9 @@ public class MascotaServiceImpl implements MascotaService {
 		// TODO Auto-generated method stub
 		mascotaRepository.deleteById(id);
 	}
-
+	
+	public MascotaEntity obtenerPorID(Integer id) {
+		// TODO Auto-generated method stub
+		return mascotaRepository.findById(id).get();
+	}
 }

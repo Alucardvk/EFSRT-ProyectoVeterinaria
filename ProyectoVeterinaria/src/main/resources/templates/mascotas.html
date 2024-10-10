@@ -7,12 +7,10 @@
     <link rel="stylesheet" href="/css/tablas.css">
 </head>
 <body>
-    <button class="logout-button">Cerrar Sesión</button>
-    <button class="back-button">Volver</button>
+    
     <div class="container">
         <h1>Veterinaria</h1>
         <main class="table" id="pets_table">
-            <a th:href="@{/registrar_mascota}" class="btn btn-primary">Registrar Mascota</a>
         
             <section class="table__header">
                 <h1>Mascotas Registradas</h1>
@@ -46,9 +44,12 @@
                                 <a th:href="@{/delete_mascota/{id}(id=${mascota.codMascota})}" class="btn btn-danger">Eliminar</a> |
                                 <a th:href="@{/actualizar_mascota/{id}(id=${mascota.codMascota})}" class="btn btn-warning">Editar</a> |
                                 <a th:href="@{/detalle_mascota/{id}(id=${mascota.codMascota})}" class="btn btn-primary">Detalles</a>  
+                                <a th:href="@{/registrar_cita/{id}(id=${mascota.codMascota})}" class="btn btn-primary">Crear cita</a> 
                             </td>
                         </tr>
                     </tbody>
+                    
+                      <a th:href="@{/menu}" class="btn btn-secondary">Regresar</a>
                 </table>
             </section>
         </main>
