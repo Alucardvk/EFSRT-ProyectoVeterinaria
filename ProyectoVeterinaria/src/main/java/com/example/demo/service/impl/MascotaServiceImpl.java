@@ -47,4 +47,9 @@ public class MascotaServiceImpl implements MascotaService {
 		// TODO Auto-generated method stub
 		return mascotaRepository.findById(id).get();
 	}
+    @Override
+    public List<MascotaEntity> obtenerMascotasPorCliente(Integer codCliente) {
+        return mascotaRepository.findByCliente_CodCliente(codCliente);
+    }
+
 }

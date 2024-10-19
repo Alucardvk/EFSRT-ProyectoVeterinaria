@@ -14,4 +14,5 @@ public interface MascotaService {
 	void verMascota(Model model, Integer id);
 	void eliminarMascota(Integer id);
 	MascotaEntity obtenerPorID(Integer id);
+	List<MascotaEntity> obtenerMascotasPorCliente(Integer codCliente);
 }

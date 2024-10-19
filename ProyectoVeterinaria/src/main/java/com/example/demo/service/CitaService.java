@@ -15,4 +15,5 @@ public interface CitaService {
 	void eliminarCita(Integer id);
 	CitaEntity obtenerPorID(Integer id);
 	void actualizarCitaInforme(CitaEntity citaEntity);
+	public List<CitaEntity> obtenerCitasPorEstado(String estado);
 }

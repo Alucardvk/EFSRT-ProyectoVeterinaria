@@ -1,18 +1,28 @@
 package com.example.demo.controller;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.ClienteEntity;
-
+import com.example.demo.entity.MascotaEntity;
 import com.example.demo.service.ClienteService;
+import com.example.demo.service.MascotaService;
+import com.example.demo.service.impl.PdfService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -22,6 +32,12 @@ public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 	
+	  
+    @Autowired
+    private MascotaService mascotaService;
+
+    @Autowired
+    private PdfService pdfService;
 	
 	
 	@GetMapping("/lista_clientes")
@@ -73,4 +89,32 @@ public class ClienteController {
 		
 		return "lista_clientes";
 	}
+	@GetMapping("/generarPDF_Cliente")
+	public ResponseEntity<InputStreamResource> generarPdfCliente(@RequestParam("clienteId") Integer clienteId) throws IOException {
+	    ClienteEntity cliente = clienteService.obtenerPorID(clienteId);
+
+	    List<MascotaEntity> mascotas = mascotaService.obtenerMascotasPorCliente(cliente.getCodCliente());
+
+	    Map<String, Object> datos = new HashMap<>();
+	    datos.put("cliente", cliente);
+	    datos.put("mascotas", mascotas); 
+	    ByteArrayInputStream pdfStream = pdfService.generarPdfdeHtml("clientes_mascotas_pdf", datos);
+
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.add("Content-Disposition", "inline; filename=cliente_mascotas.pdf");
+
+	    return ResponseEntity.ok()
+	            .headers(headers)
+	            .contentType(MediaType.APPLICATION_PDF)
+	            .body(new InputStreamResource(pdfStream));
+	}
+
+	@GetMapping("/mostrarFormularioGenerarPDF")
+	public String mostrarFormularioGenerarPDF(Model model) {
+	    List<ClienteEntity> listaClientes = clienteService.obtenerLosClientes();
+	    model.addAttribute("clientes", listaClientes);
+	    return "generarPDFCliente";
+	}
+
+
 }

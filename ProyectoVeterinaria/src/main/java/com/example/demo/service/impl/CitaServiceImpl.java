@@ -49,17 +49,16 @@ public class CitaServiceImpl implements CitaService {
 	
 	
 	public void actualizarCitaInforme(CitaEntity citaEntity) {
-	    // Verificar si la cita existe en la base de datos antes de actualizar
 	    CitaEntity citaExistente = citaRepository.findById(citaEntity.getCodCita())
 	                .orElseThrow(() -> new IllegalArgumentException("Cita no encontrada con ID: " + citaEntity.getCodCita()));
-
-        // Actualizar solo los campos que deseas (informe y estado en este caso)
         citaExistente.setInforme(citaEntity.getInforme());
         citaExistente.setEstado(citaEntity.getEstado());
 
-        // Guardar la cita actualizada en la base de datos
         citaRepository.save(citaExistente);
     }
+	public List<CitaEntity> obtenerCitasPorEstado(String estado) {
+	    return citaRepository.findByEstado(estado); 
+	}
 	
 	
 	

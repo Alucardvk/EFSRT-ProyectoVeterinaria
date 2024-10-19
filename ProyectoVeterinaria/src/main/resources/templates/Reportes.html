@@ -18,10 +18,17 @@
             </section>
             <section class="report-body">
                 <div class="report-buttons">
-                    <button class="btn btn-primary" onclick="location.href='/reporte/citas_pendientes'">Reporte de Citas Pendientes</button>
-                    <button class="btn btn-primary" onclick="location.href='/reporte/citas_completadas'">Reporte de Citas Completadas</button>
-                    <button class="btn btn-primary" onclick="location.href='/reporte/citas_totales'">Reporte de Citas Totales</button>
-                    <button class="btn btn-primary" onclick="location.href='/reporte/clientes_mascotas'">Reporte de Clientes y Mascotas</button>
+				<form action="#" th:action="@{/generarPDF_CitasPendientes}" method="get" target="_blank">
+					<button type="submit" class="btn btn-primary mt-3">Generar PDF de Citas Pendientes</button>
+				</form>
+				<form action="#" th:action="@{/generarPDF_CitasCompletadas}" method="get" target="_blank">
+				    <button type="submit" class="btn btn-primary mt-3">Generar PDF de Citas Completadas</button>
+				</form>
+                
+				<form action="#" th:action="@{/generarPDF_Citas}" method="get" target="_blank">
+            		<button type="submit" class="btn btn-primary mt-3">Generar PDF de Citas</button>
+        		</form>
+                <a class="btn btn-primary" href="/mostrarFormularioGenerarPDF">Reporte de Clientes y Mascotas</a>
                 </div>
             </section>
         </main>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles del Cliente y sus Mascotas</title>
+    <style>
+        /* Estilos para el PDF */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+        }
+        .info {
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Detalles del Cliente y sus Mascotas</h1>
+    
+    <div class="info">
+        <h2>Cliente</h2>
+        <p><strong>Nombre del Cliente:</strong> <span th:text="${cliente.nombre}"></span></p>
+    </div>
+
+    <div class="info">
+        <h2>Lista de Mascotas</h2>
+        <ul>
+            <li th:each="mascota : ${mascotas}">
+                <span th:text="${mascota.nombre}"></span>
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>

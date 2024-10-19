@@ -54,4 +54,9 @@ public class LoginController {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	 @GetMapping("/reportes") 
+	    public String mostrarReportes() {
+	        return "reportes";
+	    }
 }

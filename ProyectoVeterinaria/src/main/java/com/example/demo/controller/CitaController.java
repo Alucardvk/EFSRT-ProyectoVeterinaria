@@ -1,8 +1,16 @@
 package com.example.demo.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,12 +20,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.CitaEntity;
-import com.example.demo.entity.ClienteEntity;
 import com.example.demo.entity.MascotaEntity;
 import com.example.demo.entity.VeterinarioEntity;
 import com.example.demo.repository.VeterinarioRepository;
 import com.example.demo.service.CitaService;
 import com.example.demo.service.MascotaService;
+import com.example.demo.service.impl.PdfService;
 
 @Controller
 public class CitaController {
@@ -30,6 +38,10 @@ public class CitaController {
 	
 	@Autowired
 	private VeterinarioRepository veterinarioRepository;
+	
+
+    @Autowired
+    private PdfService pdfService;
 	
 	@GetMapping("/lista_citas")
 	public String listarCitas(Model model) {
@@ -145,4 +157,64 @@ public class CitaController {
 		
 		return "lista_citas";
 	}
+	
+	@GetMapping("/generarPDF_Citas")
+	public ResponseEntity<InputStreamResource> generarPdfCitas() throws IOException {
+	    List<CitaEntity> citas = citaService.obtenerLasCitas();
+
+	    Map<String, Object> datos = new HashMap<>();
+	    datos.put("citas", citas);
+
+	    ByteArrayInputStream pdfStream = pdfService.generarPdfdeHtml("citasTotales_PDF", datos);
+
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.add("Content-Disposition", "inline; filename=citas.pdf");
+
+	    return ResponseEntity.ok()
+	            .headers(headers)
+	            .contentType(MediaType.APPLICATION_PDF)
+	            .body(new InputStreamResource(pdfStream));
+	}
+	
+	
+	@GetMapping("/generarPDF_CitasPendientes")
+	public ResponseEntity<InputStreamResource> generarPdfCitasPendientes() throws IOException {
+	    List<CitaEntity> citasPendientes = citaService.obtenerCitasPorEstado("Pendiente");
+
+	    Map<String, Object> datos = new HashMap<>();
+	    datos.put("citas", citasPendientes);
+
+	    ByteArrayInputStream pdfStream = pdfService.generarPdfdeHtml("citasPendientes_PDF", datos);
+
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.add("Content-Disposition", "inline; filename=citas_pendientes.pdf");
+
+	    return ResponseEntity.ok()
+	            .headers(headers)
+	            .contentType(MediaType.APPLICATION_PDF)
+	            .body(new InputStreamResource(pdfStream));
+	}
+	
+	@GetMapping("/generarPDF_CitasCompletadas")
+	public ResponseEntity<InputStreamResource> generarPdfCitasCompletadas() throws IOException {
+	    List<CitaEntity> citasCompletadas = citaService.obtenerCitasPorEstado("Completado");
+	    Map<String, Object> datos = new HashMap<>();
+	    datos.put("citas", citasCompletadas);
+
+	    ByteArrayInputStream pdfStream = pdfService.generarPdfdeHtml("citasCompletadas_PDF", datos);
+
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.add("Content-Disposition", "inline; filename=citas_completadas.pdf");
+
+	    return ResponseEntity.ok()
+	            .headers(headers)
+	            .contentType(MediaType.APPLICATION_PDF)
+	            .body(new InputStreamResource(pdfStream));
+	}
+
+
+
+	
+	
+
 }

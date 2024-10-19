@@ -26,13 +26,6 @@ body {
     height: 30%;
     margin: 20px 0;
 }
-.vertical-buttons {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px 0;
-}
 
 button {
     margin: 5px;
