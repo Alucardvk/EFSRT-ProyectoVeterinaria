@@ -19,12 +19,16 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class VeterinarioController {
 
-	@Autowired
-	private VeterinarioRepository veterinarioRepository;
+    @Autowired
+    private VeterinarioRepository veterinarioRepository;
 
-	@GetMapping("/listarVeterinario")
+    private boolean isSessionValid(HttpSession session) {
+        return session.getAttribute("veterinario") != null;
+    }
+
+    @GetMapping("/listarVeterinario")
     public String listarVeterinarios(Model model, HttpSession session) {
-        if (session.getAttribute("veterinario") == null) {
+        if (!isSessionValid(session)) {
             return "redirect:/";
         }
         List<VeterinarioEntity> listaVeterinarios = veterinarioRepository.findAll();
@@ -34,10 +38,10 @@ public class VeterinarioController {
 
     @GetMapping("/registrar_veterinario")
     public String showRegistrarVeterinario(Model model, HttpSession session) {
-        if (session.getAttribute("veterinario") == null) {
+        if (!isSessionValid(session)) {
             return "redirect:/";
         }
-        
+
         model.addAttribute("veterinario", new VeterinarioEntity());
         return "registrar_veterinario";
     }
@@ -56,24 +60,27 @@ public class VeterinarioController {
         veterinarioRepository.save(veterinario);
         return "redirect:/listarVeterinario";
     }
-    
+
     @GetMapping("/editar_veterinario/{id}")
     public String mostrarFormularioEdicion(@PathVariable("id") Integer codVet, Model model, HttpSession session) {
-        if (session.getAttribute("veterinario") == null) {
+        if (!isSessionValid(session)) {
             return "redirect:/";
         }
 
-        VeterinarioEntity veterinario = veterinarioRepository.findById(codVet).orElseThrow(null);
+        VeterinarioEntity veterinario = veterinarioRepository.findById(codVet)
+            .orElseThrow(() -> new RuntimeException("Veterinario no encontrado"));
         model.addAttribute("veterinario", veterinario);
         return "actualizarVeterinario"; 
     }
 
     @PostMapping("/actualizar_veterinario")
     public String actualizarVeterinario(@ModelAttribute("veterinario") VeterinarioEntity veterinario, HttpSession session) {
-        if (session.getAttribute("veterinario") == null) {
+        if (!isSessionValid(session)) {
             return "redirect:/";
         }
-        VeterinarioEntity veterinarioExistente = veterinarioRepository.findById(veterinario.getCodVet()).orElseThrow(null);
+
+        VeterinarioEntity veterinarioExistente = veterinarioRepository.findById(veterinario.getCodVet())
+            .orElseThrow(() -> new RuntimeException("Veterinario no encontrado"));
         
         if (veterinario.getContrasenia() != null && !veterinario.getContrasenia().isEmpty()) {
             String hashedPassword = Utilitario.extraerHash(veterinario.getContrasenia());
@@ -85,11 +92,14 @@ public class VeterinarioController {
         veterinarioRepository.save(veterinario); 
         return "redirect:/listarVeterinario"; 
     }
-    
+
     @GetMapping("/eliminar_veterinario/{id}")
-    public String eliminarVeterinario(@PathVariable("id") Integer codVet) {
+    public String eliminarVeterinario(@PathVariable("id") Integer codVet, HttpSession session) {
+        if (!isSessionValid(session)) {
+            return "redirect:/";
+        }
+        
         veterinarioRepository.deleteById(codVet); 
         return "redirect:/listarVeterinario";
     }
-
 }

@@ -1,58 +1,54 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mascotas Registradas</title>
-    <link rel="stylesheet" href="/css/tablas.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/Lista.css">
 </head>
 <body>
-    
+    <button class="logout-button">Cerrar Sesión</button>
     <div class="container">
-        <h1>Veterinaria</h1>
-        <main class="table" id="pets_table">
-        
-            <section class="table__header">
-                <h1>Mascotas Registradas</h1>
-            </section>
-            <section class="table__body">
-                <table>
-                    <thead>
+        <div class="tabla">
+            <h2 class="text-center">Mascotas Registradas</h2>
+            <div class="mb-3">
+                <a class="btn btn-primary" th:href="@{/menu}" role="button">Volver al Menú</a> 
+                <a class="btn btn-success" th:href="@{/registrar_mascota}" role="button">Registrar Nueva Mascota</a>
+            </div>
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
                         <tr>
-                            <th>Id</th>
-                            <th>Nombre</th>
-                            <th>Raza</th>
-                            <th>Sexo</th>
-                            <th>Edad</th>
-                            <th>Especie</th>
-                            <th>Peso</th>
-                            <th>Cliente</th>
-                            <th>Acciones</th>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Raza</th>
+                            <th scope="col">Sexo</th>
+                            <th scope="col">Edad</th>
+                            <th scope="col">Especie</th>
+                            <th scope="col">Peso</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="mascota : ${mascotas}">
-                            <td th:text="${mascota.codMascota}"></td>
-                            <td th:text="${mascota.nombre}"></td>
-                            <td th:text="${mascota.raza}"></td>
-                            <td th:text="${mascota.sexo}"></td>
-                            <td th:text="${mascota.edad}"></td>
-                            <td th:text="${mascota.especie}"></td>
-                            <td th:text="${mascota.peso}"></td>
-                            <td th:text="${mascota.cliente.nombre + ' ' + mascota.cliente.apellidoPat}"></td>
-                            <td>
-                                <a th:href="@{/delete_mascota/{id}(id=${mascota.codMascota})}" class="btn btn-danger">Eliminar</a> |
-                                <a th:href="@{/actualizar_mascota/{id}(id=${mascota.codMascota})}" class="btn btn-warning">Editar</a> |
-                                <a th:href="@{/detalle_mascota/{id}(id=${mascota.codMascota})}" class="btn btn-primary">Detalles</a>  
-                                <a th:href="@{/registrar_cita/{id}(id=${mascota.codMascota})}" class="btn btn-primary">Crear cita</a> 
+                            <td class="table-secondary" th:text="${mascota.codMascota}"></td>
+                            <td class="table-secondary" th:text="${mascota.nombre}"></td>
+                            <td class="table-secondary" th:text="${mascota.raza}"></td>
+                            <td class="table-secondary" th:text="${mascota.sexo}"></td>
+                            <td class="table-secondary" th:text="${mascota.edad}"></td>
+                            <td class="table-secondary" th:text="${mascota.especie}"></td>
+                            <td class="table-secondary" th:text="${mascota.peso}"></td>
+                            <td class="table-secondary" th:text="${mascota.cliente.nombre + ' ' + mascota.cliente.apellidoPat}"></td>
+                            <td class="table-secondary">
+                                <a th:href="@{/registrar_cita/{id}(id=${mascota.codMascota})}" class="btn btn-info btn-sm">Crear cita</a>
                             </td>
                         </tr>
                     </tbody>
-                    
-                      <a th:href="@{/menu}" class="btn btn-secondary">Regresar</a>
                 </table>
-            </section>
-        </main>
+        </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

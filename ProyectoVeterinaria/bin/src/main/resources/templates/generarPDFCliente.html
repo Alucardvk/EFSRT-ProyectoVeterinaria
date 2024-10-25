@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Generar PDF de Cliente</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Generar PDF de Mascotas por Cliente</h1>
+        
+       <form action="#" th:action="@{/generarPDF_Cliente}" method="get" target="_blank">
+    <div class="form-group">
+        <label for="clienteSelect">Seleccione un Cliente:</label>
+        <select id="clienteSelect" name="clienteId" class="form-control" required>
+            <option value="" disabled selected>-- Seleccione un cliente --</option>
+            <option th:each="cliente : ${clientes}" 
+                    th:value="${cliente.codCliente}" 
+                    th:text="${cliente.nombre}"></option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Generar PDF</button>
+</form>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="/css/menu.css">
+</head>
+<body>
+    <button class="logout-button">Cerrar Sesión</button>
+    <div class="container">
+        <h1>Veterinaria</h1>
+
+        <div class="horizontal-buttons">
+            <a th:href="@{/listarVeterinario}">Lista de Veterinarios</a>
+            <a th:href="@{/registrar_mascota}" class="primer">Registrar mascotas</a>
+            <a th:href="@{/lista_clientes}" class="primer">Registrar clientes</a>
+        </div>
+
+		<div class="horizontal-buttons">
+		    <a th:href="@{/mascotas}" class="primer">Mascotas</a>
+		    <a th:href="@{/lista_citas}" class="primer">Informe de Cita</a>
+			<a th:href="@{/reportes}" class="primer">Generar Reportes</a>
+		</div>
+
+    </div>
+</body>
+</html>

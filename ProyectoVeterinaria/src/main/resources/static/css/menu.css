@@ -15,10 +15,11 @@ body {
     background-color: #ffffffc7;
     text-align: center;
     width: 70%; 
-    height: 100%; 
+    height: 80%; 
     display: flex;
     flex-direction: column;
     justify-content: center; 
+    border-radius: 10px;
 }
 .horizontal-buttons {
     display: flex;
@@ -42,7 +43,7 @@ button {
 }
 
 button{
-    background-color: rgba(204, 138, 52, 0.801);
+    background-color: rgba(204, 138, 52, 0.925);
     border-radius: 5px;
     border: 2px;
     transition: background-color 0.5s;
@@ -55,11 +56,7 @@ button:hover{
     width: 30%;
     height: 100%;
 }
-.segundo{
-    width: 40%;
-}
 a{
     text-decoration: none;
-    text-transform: none;
     color: black;
 }

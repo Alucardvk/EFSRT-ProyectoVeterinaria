@@ -3,86 +3,105 @@
 <head>
 <meta charset="UTF-8">
 <title>Registrar Veterinario</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/registro.css">
+<link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	
 </head>
 <body>
+	<button class="logout-d">Cerrar Sesión</button>
+	<div class="container">
+		<div class="weeeeee">
+			<h2 class="text-center">Registrar Veterinario</h2>
 
-	<div class="container mt-5">
-		<h2 class="text-center">Registrar Veterinario</h2>
-		<div th:if="${errorMessage}" class="alert alert-danger" role="alert">
-			<span th:text="${errorMessage}"></span>
+			<div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+				<span th:text="${errorMessage}"></span>
+			</div>
+				<form class="wiii" th:action="@{/registrar_veterinario}" th:object="${veterinario}"
+				method="post">
+
+				
+				<div class="waaa1">
+					<div class="form-group">
+						<label for="nombre">Nombre</label> <input type="text"
+							class="form-control" id="nombre" th:field="*{nombre}" required>
+					</div>
+		
+					<div class="form-group">
+						<label for="apellidoPat">Apellido Paterno</label> <input type="text"
+							class="form-control" id="apellidoPat" th:field="*{apellidoPat}"
+							required>
+					</div>
+		
+					<div class="form-group">
+						<label for="apellidoMat">Apellido Materno</label> <input type="text"
+							class="form-control" id="apellidoMat" th:field="*{apellidoMat}"
+							required>
+					</div>
+		
+					<div class="form-group">
+						<label for="correo">Correo Electrónico</label> <input type="email"
+							class="form-control" id="correo" th:field="*{correo}" required>
+					</div>
+		
+					<div class="form-group">
+						<label for="dni">DNI</label> <input type="text" class="form-control"
+							id="dni" th:field="*{dni}" required>
+					</div>
+		
+				</div>
+
+				<div class="waaa2">
+					<div class="form-group">
+						<label for="direccion">Dirección</label> <input type="text"
+							class="form-control" id="direccion" th:field="*{direccion}"
+							required>
+					</div>
+
+					<div class="form-group">
+						<label for="telefono">Teléfono</label> <input type="text"
+							class="form-control" id="telefono" th:field="*{telefono}" required>
+					</div>
+		
+					<div class="form-group">
+						<label for="sueldo">Sueldo</label> <input type="number"
+							class="form-control" id="sueldo" th:field="*{sueldo}" step="0.01"
+							required>
+					</div>
+		
+					<div class="form-group">
+						<label for="especialidad">Especialidad</label> <input type="text"
+							class="form-control" id="especialidad" th:field="*{especialidad}"
+							required>
+					</div>
+		
+					<div class="form-group">
+						<label for="contrasenia">Contraseña</label> <input type="password"
+							class="form-control" id="contrasenia" th:field="*{contrasenia}"
+							required>
+					</div>
+
+					
+				</div>
+				
+				<div class="waaa3">
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary btn-block">Registrar
+							Veterinario</button>
+					</div>
+				</div>
+				
+				
+			</form>
+			
+			
+			
+			<div class="form-group">
+				<a class="btn btn-secondary btn-block"
+					th:href="@{/listarVeterinario}" role="button">Volver a la Lista
+					de Veterinarios</a>
+			</div>
 		</div>
-
-		<form th:action="@{/registrar_veterinario}" th:object="${veterinario}"
-			method="post">
-
-			<div class="form-group">
-				<label for="nombre">Nombre</label> <input type="text"
-					class="form-control" id="nombre" th:field="*{nombre}" required>
-			</div>
-
-			<div class="form-group">
-				<label for="apellidoPat">Apellido Paterno</label> <input type="text"
-					class="form-control" id="apellidoPat" th:field="*{apellidoPat}"
-					required>
-			</div>
-
-			<div class="form-group">
-				<label for="apellidoMat">Apellido Materno</label> <input type="text"
-					class="form-control" id="apellidoMat" th:field="*{apellidoMat}"
-					required>
-			</div>
-
-			<div class="form-group">
-				<label for="correo">Correo Electrónico</label> <input type="email"
-					class="form-control" id="correo" th:field="*{correo}" required>
-			</div>
-
-			<div class="form-group">
-				<label for="dni">DNI</label> <input type="text" class="form-control"
-					id="dni" th:field="*{dni}" required>
-			</div>
-
-			<div class="form-group">
-				<label for="direccion">Dirección</label> <input type="text"
-					class="form-control" id="direccion" th:field="*{direccion}"
-					required>
-			</div>
-
-			<div class="form-group">
-				<label for="telefono">Teléfono</label> <input type="text"
-					class="form-control" id="telefono" th:field="*{telefono}" required>
-			</div>
-
-			<div class="form-group">
-				<label for="sueldo">Sueldo</label> <input type="number"
-					class="form-control" id="sueldo" th:field="*{sueldo}" step="0.01"
-					required>
-			</div>
-
-			<div class="form-group">
-				<label for="especialidad">Especialidad</label> <input type="text"
-					class="form-control" id="especialidad" th:field="*{especialidad}"
-					required>
-			</div>
-
-			<div class="form-group">
-				<label for="contrasenia">Contraseña</label> <input type="password"
-					class="form-control" id="contrasenia" th:field="*{contrasenia}"
-					required>
-			</div>
-
-			<div class="form-group">
-				<button type="submit" class="btn btn-primary btn-block">Registrar
-					Veterinario</button>
-			</div>
-		</form>
-		<div class="form-group">
-			<a class="btn btn-secondary btn-block"
-				th:href="@{/listarVeterinario}" role="button">Volver a la Lista
-				de Veterinarios</a>
-		</div>
+		
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes Registrados</title>
+    <link rel="stylesheet" href="/css/tablas.css">
+</head>
+<body>
+ 
+  
+    <div class="container">
+        <h1>Veterinaria</h1>
+        <main class="table" id="customers_table">
+         <a th:href="@{/registrar_cliente}" class="btn btn-primary">Registrar cliente</a>
+        
+            <section class="table__header">
+                <h1>Clientes Registrados</h1>
+            </section>
+            <section class="table__body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Apellido Paterno</th>
+                            <th>Apellido Materno</th>
+                            <th>Correo</th>
+                            <th>Dirección</th>
+                            <th>Teléfono</th>
+                            <th>DNI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                     
+                        <tr th:each="cliente : ${clientes}">
+                            <td th:text="${cliente.codCliente}"></td>
+                            <td th:text="${cliente.nombre}"></td>
+                            <td th:text="${cliente.apellidoPat}"></td>
+                            <td th:text="${cliente.apellidoMat}"></td>
+                            <td th:text="${cliente.correo}"></td>
+                            <td th:text="${cliente.direccion}"></td>
+                            <td th:text="${cliente.telefono}"></td>
+                            <td th:text="${cliente.dni}"></td>
+                             <td>
+			                    <a th:href="@{/delete/{id}(id=${cliente.codCliente})}" class="btn btn-danger">Eliminar</a> |
+			                    <a th:href="@{/actualizar_cliente/{id}(id=${cliente.codCliente})}" class="btn btn-warning">Editar</a> |
+			                    <a th:href="@{/detalle_cliente/{id}(id=${cliente.codCliente})}" class="btn btn-primary">Detalles</a>  
+			                </td>
+                        </tr>
+                        
+                          <a th:href="@{/menu}" class="btn btn-secondary">Regresar</a>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</body>

@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,11 +52,20 @@ public class LoginController {
 	}
 
 	@GetMapping("/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return "redirect:/";
-	}
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
 	
+
+	@GetMapping("/protectedPage")
+	public String protectedPage(Model model, Principal principal) {
+		if (principal == null) {
+			return "redirect:/"; 
+		}
+		return "protectedPage";
+	}
+
 	 @GetMapping("/reportes") 
 	    public String mostrarReportes() {
 	        return "reportes";

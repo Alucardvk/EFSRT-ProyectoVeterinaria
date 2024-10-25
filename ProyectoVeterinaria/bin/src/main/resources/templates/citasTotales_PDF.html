@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Citas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Listado de Citas</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Código Cita</th> 
+                <th>Estado</th>
+                <th>Informe</th>
+                <th>Nombre Mascota</th>
+                <th>Veterinario</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="cita : ${citas}">
+                <td th:text="${cita.codCita}"></td>
+                <td th:text="${cita.estado}"></td>
+                <td th:text="${cita.informe}"></td>
+                <td th:text="${cita.codMascota.nombre}"></td>
+                <td th:text="${cita.codVet.nombre}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

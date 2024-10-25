@@ -26,82 +26,73 @@ import com.example.demo.service.impl.PdfService;
 
 import jakarta.servlet.http.HttpSession;
 
+@SuppressWarnings("unused")
 @Controller
 public class MascotaController {
 
-	@Autowired
-	private MascotaService mascotaService;
-	
-	@Autowired
-	private ClienteService clienteService;
-	
-	@Autowired
-	private PdfService pdfService;
-	
-	@GetMapping("/mascotas")
-	public String listarMascotas(Model model) {
-		List<MascotaEntity> listaMascotas = mascotaService.obtenerLasMascotas();
-		
-		List<ClienteEntity> listaClientes = clienteService.obtenerLosClientes();
-		
-		model.addAttribute("clientes",listaClientes);
-		
-		model.addAttribute("mascotas",listaMascotas);
-		return "mascotas";
-	}
-	
-	@GetMapping("/registrar_mascota")
-	public String mostrarRegistrarMascota(@ModelAttribute MascotaEntity mascota,Model model) {
-		model.addAttribute("mascota",new MascotaEntity());
-		
-		List<ClienteEntity> clientes = clienteService.obtenerLosClientes();
-		
-		List<MascotaEntity> listaMascotas = mascotaService.obtenerLasMascotas();
-		
-		model.addAttribute("clientes",clientes);
-		 model.addAttribute("cliente", new ClienteEntity());
-		model.addAttribute("mascotas",listaMascotas);
-		
-		return "registrar_mascota";
-	}
-	
-	
-	@PostMapping("/registrar_mascota")
-	public String registrarMascota(@ModelAttribute MascotaEntity mascota,Model model) {
-		
-		ClienteEntity cliente = clienteService.obtenerPorID(mascota.getCliente().getCodCliente());
-		mascota.setCliente(cliente);
-		mascotaService.registrarMascota(mascota,model);
-		
-		
-		List<MascotaEntity> mascotas = mascotaService.obtenerLasMascotas();
-		model.addAttribute("mascotas",mascotas);
-		return "mascotas";
-	}
-	
-	@GetMapping("/actualizar_mascota/{id}")
-	public String mostrarActualizarMascota(Model model, @PathVariable("id") Integer id) {
-		mascotaService.verMascota(model, id);
-		
-		return "actualizar_mascota";
-	}
-	
-	@GetMapping("/detalle_mascota/{id}")
-	public String mostrarDetalleMascota(Model model, @PathVariable("id") Integer id) {
-		mascotaService.verMascota(model, id);
-		return "detalle_mascota";
-	}
-	
-	
-	
-	@GetMapping("/delete_mascota/{id}")
-	public String eliminarMascota(@PathVariable("id")Integer id,Model model) {
-		mascotaService.eliminarMascota(id);
-		
-		List<MascotaEntity> listaMascotas = mascotaService.obtenerLasMascotas();
-		model.addAttribute("mascotas",listaMascotas);
-		
-		return "mascotas";
-	}
-
+    @Autowired
+    private MascotaService mascotaService;
+    
+    @Autowired
+    private ClienteService clienteService;
+    
+    @Autowired
+    private PdfService pdfService;
+    
+    @GetMapping("/mascotas")
+    public String listarMascotas(HttpSession session, Model model) {
+        List<MascotaEntity> listaMascotas = mascotaService.obtenerLasMascotas();
+        List<ClienteEntity> listaClientes = clienteService.obtenerLosClientes();
+        
+        model.addAttribute("clientes", listaClientes);
+        model.addAttribute("mascotas", listaMascotas);
+        return "mascotas";
+    }
+    
+    @GetMapping("/registrar_mascota")
+    public String mostrarRegistrarMascota(HttpSession session, @ModelAttribute MascotaEntity mascota, Model model) {
+        model.addAttribute("mascota", new MascotaEntity());
+        
+        List<ClienteEntity> clientes = clienteService.obtenerLosClientes();
+        List<MascotaEntity> listaMascotas = mascotaService.obtenerLasMascotas();
+        
+        model.addAttribute("clientes", clientes);
+        model.addAttribute("cliente", new ClienteEntity());
+        model.addAttribute("mascotas", listaMascotas);
+        
+        return "registrar_mascota";
+    }
+    
+    @PostMapping("/registrar_mascota")
+    public String registrarMascota(HttpSession session, @ModelAttribute MascotaEntity mascota, Model model) {
+        ClienteEntity cliente = clienteService.obtenerPorID(mascota.getCliente().getCodCliente());
+        mascota.setCliente(cliente);
+        mascotaService.registrarMascota(mascota, model);
+        
+        List<MascotaEntity> mascotas = mascotaService.obtenerLasMascotas();
+        model.addAttribute("mascotas", mascotas);
+        return "mascotas";
+    }
+    
+    @GetMapping("/actualizar_mascota/{id}")
+    public String mostrarActualizarMascota(HttpSession session, Model model, @PathVariable("id") Integer id) {
+        mascotaService.verMascota(model, id);
+        return "actualizar_mascota";
+    }
+    
+    @GetMapping("/detalle_mascota/{id}")
+    public String mostrarDetalleMascota(HttpSession session, Model model, @PathVariable("id") Integer id) {
+        mascotaService.verMascota(model, id);
+        return "detalle_mascota";
+    }
+    
+    @GetMapping("/delete_mascota/{id}")
+    public String eliminarMascota(HttpSession session, @PathVariable("id") Integer id, Model model) {
+        mascotaService.eliminarMascota(id);
+        
+        List<MascotaEntity> listaMascotas = mascotaService.obtenerLasMascotas();
+        model.addAttribute("mascotas", listaMascotas);
+        
+        return "mascotas";
+    }
 }

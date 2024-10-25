@@ -1,4 +1,5 @@
 package com.example.demo.controller;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -28,93 +29,122 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ClienteController {
-	
-	@Autowired
-	private ClienteService clienteService;
-	
-	  
+    
+    @Autowired
+    private ClienteService clienteService;
+    
     @Autowired
     private MascotaService mascotaService;
 
     @Autowired
     private PdfService pdfService;
-	
-	
-	@GetMapping("/lista_clientes")
-	public String listarClientes(Model model) {
-		List<ClienteEntity> listaClientes = clienteService.obtenerLosClientes();
-		model.addAttribute("clientes",listaClientes);
-		
 
-		return "lista_clientes";
-	}
-	
-	@GetMapping("/registrar_cliente")
-	public String mostrarRegistrarCliente(@ModelAttribute ClienteEntity cliente,Model model) {
-		model.addAttribute("cliente",new ClienteEntity());
-		
-		List<ClienteEntity> clientes = clienteService.obtenerLosClientes();
-		model.addAttribute("clientes",clientes);
-		return "registrar_cliente";
-	}
-	
-	@PostMapping("/registrar_cliente")
-	public String registrarCliente(@ModelAttribute ClienteEntity cliente,Model model) {
-		clienteService.registrarCliente(cliente, model);
-		
+    private boolean isSessionValid(HttpSession session) {
+        return session.getAttribute("veterinario") != null;
+    }
 
-		return "redirect:/lista_clientes";
-	}
-	
-	@GetMapping("/actualizar_cliente/{id}")
-	public String mostrarActualizarCliente(Model model, @PathVariable("id") Integer id) {
-		clienteService.verCliente(model, id);
-		
-		return "actualizar_cliente";
-	}
-	
-	@GetMapping("/detalle_cliente/{id}")
-	public String mostrarDetalleCliente(Model model, @PathVariable("id") Integer id) {
-		clienteService.verCliente(model, id);
-		return "detalle_cliente";
-	}
-	
-	
-	@GetMapping("/delete_cliente/{id}")
-	public String eliminarCliente(@PathVariable("id")Integer id,Model model) {
-		clienteService.eliminarCliente(id);
-		
-		List<ClienteEntity> listaClientes = clienteService.obtenerLosClientes();
-		model.addAttribute("clientes",listaClientes);
-		
-		return "lista_clientes";
-	}
-	@GetMapping("/generarPDF_Cliente")
-	public ResponseEntity<InputStreamResource> generarPdfCliente(@RequestParam("clienteId") Integer clienteId) throws IOException {
-	    ClienteEntity cliente = clienteService.obtenerPorID(clienteId);
+    @GetMapping("/lista_clientes")
+    public String listarClientes(Model model, HttpSession session) {
+        if (!isSessionValid(session)) {
+            return "redirect:/";
+        }
+        
+        List<ClienteEntity> listaClientes = clienteService.obtenerLosClientes();
+        model.addAttribute("clientes", listaClientes);
+        
+        return "lista_clientes";
+    }
 
-	    List<MascotaEntity> mascotas = mascotaService.obtenerMascotasPorCliente(cliente.getCodCliente());
+    @GetMapping("/registrar_cliente")
+    public String mostrarRegistrarCliente(@ModelAttribute ClienteEntity cliente, Model model, HttpSession session) {
+        if (!isSessionValid(session)) {
+            return "redirect:/";
+        }
 
-	    Map<String, Object> datos = new HashMap<>();
-	    datos.put("cliente", cliente);
-	    datos.put("mascotas", mascotas); 
-	    ByteArrayInputStream pdfStream = pdfService.generarPdfdeHtml("clientes_mascotas_pdf", datos);
+        model.addAttribute("cliente", new ClienteEntity());
+        
+        List<ClienteEntity> clientes = clienteService.obtenerLosClientes();
+        model.addAttribute("clientes", clientes);
+        return "registrar_cliente";
+    }
 
-	    HttpHeaders headers = new HttpHeaders();
-	    headers.add("Content-Disposition", "inline; filename=cliente_mascotas.pdf");
+    @PostMapping("/registrar_cliente")
+    public String registrarCliente(@ModelAttribute ClienteEntity cliente, Model model, HttpSession session) {
+        if (!isSessionValid(session)) {
+            return "redirect:/";
+        }
 
-	    return ResponseEntity.ok()
-	            .headers(headers)
-	            .contentType(MediaType.APPLICATION_PDF)
-	            .body(new InputStreamResource(pdfStream));
-	}
+        clienteService.registrarCliente(cliente, model);
+        
+        return "redirect:/lista_clientes";
+    }
 
-	@GetMapping("/mostrarFormularioGenerarPDF")
-	public String mostrarFormularioGenerarPDF(Model model) {
-	    List<ClienteEntity> listaClientes = clienteService.obtenerLosClientes();
-	    model.addAttribute("clientes", listaClientes);
-	    return "generarPDFCliente";
-	}
+    @GetMapping("/actualizar_cliente/{id}")
+    public String mostrarActualizarCliente(Model model, @PathVariable("id") Integer id, HttpSession session) {
+        if (!isSessionValid(session)) {
+            return "redirect:/";
+        }
 
+        clienteService.verCliente(model, id);
+        
+        return "actualizar_cliente";
+    }
 
+    @GetMapping("/detalle_cliente/{id}")
+    public String mostrarDetalleCliente(Model model, @PathVariable("id") Integer id, HttpSession session) {
+        if (!isSessionValid(session)) {
+            return "redirect:/";
+        }
+
+        clienteService.verCliente(model, id);
+        return "detalle_cliente";
+    }
+
+    @GetMapping("/delete_cliente/{id}")
+    public String eliminarCliente(@PathVariable("id") Integer id, Model model, HttpSession session) {
+        if (!isSessionValid(session)) {
+            return "redirect:/";
+        }
+
+        clienteService.eliminarCliente(id);
+        
+        List<ClienteEntity> listaClientes = clienteService.obtenerLosClientes();
+        model.addAttribute("clientes", listaClientes);
+        
+        return "lista_clientes";
+    }
+
+    @GetMapping("/generarPDF_Cliente")
+    public ResponseEntity<InputStreamResource> generarPdfCliente(@RequestParam("clienteId") Integer clienteId, HttpSession session) throws IOException {
+        if (!isSessionValid(session)) {
+            return ResponseEntity.status(403).build(); // Forbidden
+        }
+
+        ClienteEntity cliente = clienteService.obtenerPorID(clienteId);
+        List<MascotaEntity> mascotas = mascotaService.obtenerMascotasPorCliente(cliente.getCodCliente());
+
+        Map<String, Object> datos = new HashMap<>();
+        datos.put("cliente", cliente);
+        datos.put("mascotas", mascotas); 
+        ByteArrayInputStream pdfStream = pdfService.generarPdfdeHtml("clientes_mascotas_pdf", datos);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=cliente_mascotas.pdf");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(pdfStream));
+    }
+
+    @GetMapping("/mostrarFormularioGenerarPDF")
+    public String mostrarFormularioGenerarPDF(Model model, HttpSession session) {
+        if (!isSessionValid(session)) {
+            return "redirect:/";
+        }
+
+        List<ClienteEntity> listaClientes = clienteService.obtenerLosClientes();
+        model.addAttribute("clientes", listaClientes);
+        return "generarPDFCliente";
+    }
 }

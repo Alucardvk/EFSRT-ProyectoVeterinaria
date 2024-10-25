@@ -3,61 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Mascota</title>
-
+    <title>Actualizar de Mascota</title>
+    <link rel="stylesheet" href="/css/actualizar.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
+    <button class="logout-d">Cerrar Sesión</button>
+    <div class="container">
+        <div class="weeeeee">
+            <h2 class="text-center">Actualizar de Mascota</h2>
+            <form th:action="@{/registrar_mascota}" th:object="${mascota}" method="post">
+                <input type="hidden" th:field="*{codMascota}">
 
-<div class="container">
-    <h2>Registro de Mascota</h2>
-    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
-        <span th:text="${errorMessage}"></span>
+                <div class="waaa1">
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" th:field="*{nombre}" placeholder="Ingrese el nombre de la mascota" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="raza">Raza:</label>
+                        <input type="text" class="form-control" id="raza" th:field="*{raza}" placeholder="Ingrese la raza de la mascota" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sexo">Sexo:</label>
+                        <input type="text" class="form-control" id="sexo" th:field="*{sexo}" placeholder="Ingrese el sexo de la mascota" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edad">Edad:</label>
+                        <input type="number" class="form-control" id="edad" th:field="*{edad}" placeholder="Ingrese la edad de la mascota" required>
+                    </div>
+                </div>
+                
+                <div class="waaa2">
+                    
+                    <div class="form-group">
+                        <label for="especie">Especie:</label>
+                        <input type="text" class="form-control" id="especie" th:field="*{especie}" placeholder="Ingrese la especie de la mascota" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="peso">Peso:</label>
+                        <input type="number" class="form-control" id="peso" th:field="*{peso}" placeholder="Ingrese el peso de la mascota" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cliente">Cliente:</label>
+                        <select class="form-control" id="cliente" th:field="*{cliente}">
+                            <option value="" disabled selected>Seleccione un cliente</option>
+                            <option th:each="cliente : ${clientes}" 
+                                    th:value="${cliente}" 
+                                    th:text="${cliente.nombre + ' ' + cliente.apellidoPat}"></option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="waaa3">
+                    <button type="submit" class="btn btn-success btn-block">Guardar</button>
+                </div>
+            </form>
+            <div class="form-group">
+                <a th:href="@{/lista_mascotas}" class="btn btn-secondary btn-block">Regresar</a>
+            </div>
+        </div>
     </div>
-    <form th:action="@{/registrar_mascota}" th:object="${mascota}" method="post">
-    
-    	<input type = "hidden" th:field="*{codMascota}" >
-    
-        <div class="form-group">
-            <label for="nombre">Nombre:</label>
-            <input type="text" class="form-control" id="nombre" th:field="*{nombre}" placeholder="Ingrese el nombre de la mascota" required>
-        </div>
-        <div class="form-group">
-            <label for="raza">Raza:</label>
-            <input type="text" class="form-control" id="raza" th:field="*{raza}" placeholder="Ingrese la raza de la mascota" required>
-        </div>
-        <div class="form-group">
-            <label for="sexo">Sexo:</label>
-            <input type="text" class="form-control" id="sexo" th:field="*{sexo}" placeholder="Ingrese el sexo de la mascota" required>
-        </div>
-        <div class="form-group">
-            <label for="edad">Edad:</label>
-            <input type="number" class="form-control" id="edad" th:field="*{edad}" placeholder="Ingrese la edad de la mascota" required>
-        </div>
-        <div class="form-group">
-            <label for="especie">Especie:</label>
-            <input type="text" class="form-control" id="especie" th:field="*{especie}" placeholder="Ingrese la especie de la mascota" required>
-        </div>
-        <div class="form-group">
-            <label for="peso">Peso:</label>
-            <input type="number" class="form-control" id="peso" th:field="*{peso}" placeholder="Ingrese el peso de la mascota" required>
-        </div>
 
-        <div class="form-group">
-            <label for="cliente">Cliente:</label>
-            <select class="form-control" id="cliente" th:field="*{cliente}">
-                <option value="" disabled selected>Seleccione un cliente</option>
-                <option th:each="cliente : ${clientes}" 
-                        th:value="${cliente}" 
-                        th:text="${cliente.nombre + ' ' + cliente.apellidoPat}"></option>
-            </select>
-        </div>
-
-        <a th:href="@{/lista_mascotas}" class="btn btn-secondary">Regresar</a>
-        <button type="submit" class="btn btn-primary">Guardar</button>
-    </form>
-</div>
-
-</body>
-</html>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script

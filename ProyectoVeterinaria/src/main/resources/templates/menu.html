@@ -5,22 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
     <link rel="stylesheet" href="/css/menu.css">
+    <script>
+        window.history.pushState(null, document.title, window.location.href);
+        window.addEventListener('popstate', function(event) {
+            window.history.pushState(null, document.title, window.location.href);
+        });
+    </script>
 </head>
 <body>
-    <button class="logout-button">Cerrar Sesión</button>
+    <button class="logout-button"><a class="btn btn-outline-danger ml-2" th:href="@{/logout}" role="button">Cerrar sesion
+    
+    </a></button>
+    
     <div class="container">
         <h1>Veterinaria</h1>
 
         <div class="horizontal-buttons">
-            <a th:href="@{/listarVeterinario}">Lista de Veterinarios</a>
-            <a th:href="@{/registrar_mascota}" class="primer">Registrar mascotas</a>
-            <a th:href="@{/lista_clientes}" class="primer">Registrar clientes</a>
+            <button class="primer"><a th:href="@{/listarVeterinario}"class="primer">Lista de Veterinarios</a></button>  
+            <button class="primer"><a th:href="@{/registrar_mascota}" class="primer">Registrar mascotas</a></button>
+            <button class="primer"><a th:href="@{/lista_clientes}" class="primer">Registro de clientes</a></button> 
         </div>
 
 		<div class="horizontal-buttons">
-		    <a th:href="@{/mascotas}" class="primer">Mascotas</a>
-		    <a th:href="@{/lista_citas}" class="primer">Informe de Cita</a>
-			<a th:href="@{/reportes}" class="primer">Generar Reportes</a>
+		   <button class="primer"><a th:href="@{/mascotas}" class="primero">Mascotas</a></button> 
+		   <button class="primer"><a th:href="@{/lista_citas}" class="primero">Informe de Cita</a></button> 
+           <button class="primer"><a th:href="@{/reportes}" class="primero">Generar Reportes</a></button>
 		</div>
 
     </div>

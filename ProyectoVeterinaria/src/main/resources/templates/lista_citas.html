@@ -1,57 +1,54 @@
-
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Citas Registradas</title>
-    <link rel="stylesheet" href="/css/tablas.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/Lista.css">
 </head>
 <body>
     <button class="logout-button">Cerrar Sesión</button>
-    <button class="back-button">Volver</button>
     <div class="container">
-        <h1>Veterinaria</h1>
-        <main class="table" id="appointments_table">
+        <div class="tabla">
+            <h2 class="text-center">Citas Registradas</h2>
+
+        <div class="mb-3">
+            <a class="btn btn-primary" th:href="@{/menu}" role="button">Volver al Menú</a>
+        </div>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Hora</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Mascota</th>
+                        <th scope="col">Veterinario</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="cita : ${citas}">
+                        <td class="table-secondary" th:text="${cita.codCita}"></td>
+                        <td class="table-secondary" th:text="${cita.fechaCita}"></td>
+                        <td class="table-secondary" th:text="${cita.horaCita}"></td>
+                        <td class="table-secondary" th:text="${cita.descripcion}"></td>
+                        <td class="table-secondary" th:text="${cita.estado}"></td>
+                        <td class="table-secondary" th:text="${cita.codMascota.nombre}"></td>
+                        <td class="table-secondary" th:text="${cita.codVet.nombre}"></td>
+                        <td class="table-secondary">
+                            <a th:href="@{/detalle_cita/{id}(id=${cita.codCita})}" class="btn btn-primary btn-sm">Detalles de la cita</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         
-            <section class="table__header">
-                <h1>Citas Registradas</h1>
-            </section>
-            <section class="table__body">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Fecha</th>
-                            <th>Hora</th>
-                            <th>Descripción</th>
-                            <th>Estado</th>
-                            <th>Mascota</th>
-                            <th>Veterinario</th>
-       
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="cita : ${citas}">
-                            <td th:text="${cita.codCita}"></td>
-                            <td th:text="${cita.fechaCita}"></td>
-                            <td th:text="${cita.horaCita}"></td>
-                            <td th:text="${cita.descripcion}"></td>
-                            <td th:text="${cita.estado}"></td>
-                            <td th:text="${cita.codMascota.nombre}"></td>
-                            <td th:text="${cita.codVet.nombre}"></td>
-                 
-                            <td>
-			   
-			                    <a th:href="@{/actualizar_cita/{id}(id=${cita.codCita})}" class="btn btn-warning">Editar</a> |
-			                    <a th:href="@{/detalle_cita/{id}(id=${cita.codCita})}" class="btn btn-primary">Detalles de la cita</a>  
-			                </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-        </main>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

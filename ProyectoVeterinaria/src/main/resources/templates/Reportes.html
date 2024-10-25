@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportes de Veterinaria</title>
-    <link rel="stylesheet" href="/css/tablas.css">
+    <link rel="stylesheet" href="/css/reportepdft.css">
 </head>
 <body>
     <button class="logout-button">Cerrar Sesión</button>
-    <button class="back-button">Volver</button>
+    
 
     <div class="container">
         <h1>Veterinaria</h1>
@@ -18,17 +18,27 @@
             </section>
             <section class="report-body">
                 <div class="report-buttons">
-				<form action="#" th:action="@{/generarPDF_CitasPendientes}" method="get" target="_blank">
-					<button type="submit" class="btn btn-primary mt-3">Generar PDF de Citas Pendientes</button>
-				</form>
-				<form action="#" th:action="@{/generarPDF_CitasCompletadas}" method="get" target="_blank">
-				    <button type="submit" class="btn btn-primary mt-3">Generar PDF de Citas Completadas</button>
-				</form>
-                
-				<form action="#" th:action="@{/generarPDF_Citas}" method="get" target="_blank">
-            		<button type="submit" class="btn btn-primary mt-3">Generar PDF de Citas</button>
-        		</form>
-                <a class="btn btn-primary" href="/mostrarFormularioGenerarPDF">Reporte de Clientes y Mascotas</a>
+                    <div class="horizontal-buttons">
+                        <form action="#" th:action="@{/generarPDF_CitasPendientes}" method="get" target="_blank">
+                            <button type="submit" class="btn btn-primary mt-3">Generar PDF de Citas Pendientes</button>
+                        </form>
+                        <form action="#" th:action="@{/generarPDF_CitasCompletadas}" method="get" target="_blank">
+                            <button type="submit" class="btn btn-primary mt-3">Generar PDF de Citas Completadas</button>
+                        </form>
+                    </div>
+                    <div class="horizontal-buttons">
+                        <form action="#" th:action="@{/generarPDF_Citas}" method="get" target="_blank">
+                            <button type="submit" class="btn btn-primary mt-3">Generar PDF de Citas</button>
+                        </form>
+        
+                        <form >
+                            <button type="submit" class="btn btn-primary mt-3"><a class="btn btn-primary" href="/mostrarFormularioGenerarPDF">Reporte de Clientes y Mascotas</a></button>
+                        </form>   
+                        
+                    </div>
+                    <div class="form-group">
+                        <button class="an btn-block" ><a th:href="@{/menu}"  role="button">Regresar</a></button>
+                    </div> 
                 </div>
             </section>
         </main>

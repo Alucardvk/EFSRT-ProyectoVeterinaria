@@ -1,0 +1,71 @@
+body {
+    background-image: url(/img/fondo.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0; 
+    padding: 0; 
+    height: 100vh; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    position: relative; 
+    
+}
+.container {
+    background-color: #ffffffc7;
+    text-align: center;
+    width: 70%; 
+    height: 80%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    border-radius: 10px;
+    align-items: center; 
+    border: none;
+    box-shadow: none; 
+    text-align: justify;
+}
+.title {
+    color: #000000; 
+    padding: 0; 
+    text-align: center; 
+    margin-top: 0; 
+    font-size: 70px;
+    margin-bottom: 5%;
+}
+.row {
+    margin-top: 100px;
+    justify-content: center;
+    font-size: 30px;
+    
+}
+.col-md-6 {
+    padding: 20px;
+}
+.img-vet {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 6px 4px 4px rgba(0, 0, 0, 0.281);
+}
+.boton-degradado{
+    background: linear-gradient(to right, #6ac2a7, #a5ebfd); 
+    border: none; color: rgb(0, 0, 0); 
+    padding: 10px 20px; 
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-size: 16px; 
+    margin: 4px 2px; 
+    cursor: pointer;
+    border-radius: 5px;
+    
+}
+button{
+    box-shadow: 6px 4px 4px rgba(0, 0, 0, 0.281);
+    
+}
+.form-control{
+    box-shadow: 6px 4px 4px rgba(0, 0, 0, 0.281);
+}
